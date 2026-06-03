@@ -13,18 +13,13 @@ const PORT = process.env.PORT || 5001;
 
 //Middlewares:
 
-// our simple custom middleware
-// app.use((req, res, next) => {
-//   console.log(`Req method is ${req.method} & Req URL is ${req.url}`);
-//   next();
-// });
-
-app.use(cors());
-
+app.use(cors()); //Enable CORS
 app.use(express.json()); // this middleware will parse JSON bodies: req.body
-app.use(rateLimiter);
+app.use(rateLimiter); //Enable rate limiting
 
 app.use("/api/notes", noteRoutes);
+
+//Connect to the database and start the server
 
 connectDB().then(() => {
   app.listen(PORT, () => {
